@@ -1,8 +1,20 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true
+  },
+  "monorepo": true,
+  "projects": {
+    "micro.news": {
+      "type": "application",
+      "root": "apps/micro.news",
+      "entryFile": "main",
+      "sourceRoot": "apps/micro.news/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/micro.news/tsconfig.app.json"
+      }
+    }
   }
 }

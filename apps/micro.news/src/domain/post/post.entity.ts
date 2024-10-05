@@ -7,7 +7,7 @@ import { postSchema } from './post.validate';
 // }
 
 export interface PostEntityProps {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   content: string;
@@ -39,7 +39,7 @@ export class PostEntity {
     };
   }
 
-  get id(): number {
+  get id(): string {
     return this.props.id;
   }
 
@@ -49,8 +49,11 @@ export class PostEntity {
 
   toJson() {
     return {
-      id: this.id,
-      title: this.title,
+      id: this.props.id,
+      title: this.props.title,
+      slug: this.props.slug,
+      content: this.props.content,
+      updatedAt: this.props.updatedAt,
     };
   }
 }

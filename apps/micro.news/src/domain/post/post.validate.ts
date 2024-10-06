@@ -24,7 +24,7 @@ export const postSchema = z.object({
     .max(255, {
       message: 'Post slug should have a maximum of 255 characters',
     }),
-
+category: z.string({message:'Post category is required'}).min(10,{message:'Post category should have a minimum of 10 characters'}).max(30,{message:'Post category should have a maximum of 30 characters'})
   content: z
     .string({ message: 'Post content is required' })
     .min(50, { message: 'Post content minimum length is 50 characters' }),

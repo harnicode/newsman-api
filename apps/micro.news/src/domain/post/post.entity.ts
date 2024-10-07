@@ -7,24 +7,24 @@ import {format} from 'date-fns';
 //   unpublished,
 // }
 
-const convertDay = (day: string) => {
-  var suffix:string;
-  var dayToNumber:number = parseInt(day);
-  var remainder:number = dayToNumber % 10;
-  if(remainder == 1){
-    suffix = "st";
-  }
-  else if(remainder == 2){
-    suffix = 'nd';
-  }
-  else if (remainder == 3){
-    suffix = 'rd';
-  }
-  else {
-    suffix = 'th';
-  }
-  return `${day}${suffix}`;
-}
+// const convertDay = (day: string) => {
+//   var suffix:string;
+//   var dayToNumber:number = parseInt(day);
+//   var remainder:number = dayToNumber % 10;
+//   if(remainder == 1){
+//     suffix = "st";
+//   }
+//   else if(remainder == 2){
+//     suffix = 'nd';
+//   }
+//   else if (remainder == 3){
+//     suffix = 'rd';
+//   }
+//   else {
+//     suffix = 'th';
+//   }
+//   return `${day}${suffix}`;
+// }
 
 export interface PostEntityProps {
   id: string;
@@ -81,7 +81,8 @@ export class PostEntity {
 
   get publishedAt(): string {
     const date = new Date(this.props.publishedAt);
-    return `${convertDay(format(date, 'dd'))} ${format(date, 'MMMM')}, ${format(date, 'yyyy')}`;
+    // return `${convertDay(format(date, 'dd'))} ${format(date, 'MMMM')}, ${format(date, 'yyyy')}`;
+    return format(date, "do MMMM, yyyy");
   }
 
   get updatedAt(): string {

@@ -1,4 +1,5 @@
 import { postSchema } from './post.validate';
+import {format} from 'date-fns';
 
 // enum PostEntityStatus {
 //   draft,
@@ -6,15 +7,34 @@ import { postSchema } from './post.validate';
 //   unpublished,
 // }
 
+const convertDay = (day: string) => {
+  var suffix:string;
+  var dayToNumber:number = parseInt(day);
+  var remainder:number = dayToNumber % 10;
+  if(remainder == 1){
+    suffix = "st";
+  }
+  else if(remainder == 2){
+    suffix = 'nd';
+  }
+  else if (remainder == 3){
+    suffix = 'rd';
+  }
+  else {
+    suffix = 'th';
+  }
+  return `${day}${suffix}`;
+}
+
 export interface PostEntityProps {
   id: string;
   title: string;
   slug: string;
   content: string;
-  // image: string;
-  // status: PostEntityStatus;
-  // category: string;
-  // publishedAt: string;
+  image: string;
+  status: string;
+  category: string;
+  publishedAt: string;
   updatedAt: string;
 }
 
@@ -45,6 +65,28 @@ export class PostEntity {
 
   get title(): string {
     return this.props.title;
+  }
+
+  get image(): string {
+    return this.props.image;
+  }
+
+  get status(): string {
+    return this.props.status;
+  }
+
+  get category(): string {
+    return this.props.category;
+  }
+
+  get publishedAt(): string {
+    const date = new Date(this.props.publishedAt);
+    return `${convertDay(format(date, 'dd'))} ${format(date, 'MMMM')}, ${format(date, 'yyyy')}`;
+  }
+
+  get updatedAt(): string {
+    const date = new Date(this.props.updatedAt);
+    return `${convertDay(format(date, 'dd'))} ${format(date, 'MMMM')}, ${format(date, 'yyyy')}`;
   }
 
   toJson() {

@@ -29,5 +29,19 @@ export const postSchema = z.object({
     .string({ message: 'Post content is required' })
     .min(50, { message: 'Post content minimum length is 50 characters' }),
 
+  image: z
+    .string({ message: 'Post image is required' })
+    .startsWith('https://', { message: 'Image link should be encrypted'}),
+
+  status: z
+    .enum(["Published", "Pending"],{ message: 'Status should be Published or Pending' }),
+    
+  category: z
+    .enum(["lorem", "other"],{ message: 'Category should be lorem or other' }),
+
+  publishedAt: z
+    .string({ message: 'Category should be lorem or other' }),
+    
+
   updatedAt: z.string({ message: 'Post update date is required' }),
 });

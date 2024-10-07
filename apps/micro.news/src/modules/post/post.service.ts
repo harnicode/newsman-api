@@ -12,6 +12,10 @@ export class PostService {
       title: dto.title,
       content: dto.content,
       slug: this.generateSlug(dto.title),
+      image: dto.image,
+      status: dto.status,
+      category: dto.category,
+      publishedAt: dto.publishedAt,
       updatedAt: new Date().toISOString(),
     });
 

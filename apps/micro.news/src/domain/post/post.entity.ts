@@ -86,7 +86,7 @@ export class PostEntity {
 
   get updatedAt(): string {
     const date = new Date(this.props.updatedAt);
-    return `${convertDay(format(date, 'dd'))} ${format(date, 'MMMM')}, ${format(date, 'yyyy')}`;
+    return format(date, "do MMMM, yyyy");
   }
 
   toJson() {
@@ -95,7 +95,11 @@ export class PostEntity {
       title: this.props.title,
       slug: this.props.slug,
       content: this.props.content,
-      updatedAt: this.props.updatedAt,
+      image: this.props.image,
+      status: this.props.status,
+      category: this.props.category,
+      publishedAt: this.props.publishedAt,
+      updatedAt: this.updatedAt,
     };
   }
 }

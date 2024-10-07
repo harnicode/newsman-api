@@ -42,6 +42,5 @@ export const postSchema = z.object({
   publishedAt: z
     .string({ message: 'Category should be lorem or other' }),
     
-
   updatedAt: z.string({ message: 'Post update date is required' }),
 });

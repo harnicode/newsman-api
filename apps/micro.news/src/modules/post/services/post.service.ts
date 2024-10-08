@@ -11,6 +11,10 @@ import { PostDbRepository } from '../framework/db.repository';
 export class PostService {
   constructor(private readonly db: PostDbRepository) {}
 
+  async getPost(id: string) {
+    return await this.db.findById(id);
+  }
+
   async createPost(dto: CreatePostDto) {
     const postId = PostEntityId.create();
 
@@ -35,12 +39,15 @@ export class PostService {
 
   private generateSlug(title: string) {
     const regex = /[!@#$%^&*(),.?":{}|<>]/g;
+    const random = Math.floor(Math.random() * 10000);
 
-    return title
+    const slug = title
       .toLowerCase()
       .replaceAll(regex, ' ')
       .replaceAll('  ', ' ')
       .trim()
       .replaceAll(' ', '-');
+
+    return `${slug}-${random}`;
   }
 }

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { PostEntity } from './post.entity';
+import { PostEntity, PostEntityProps } from './post.entity';
 
 export abstract class PostRepository {
-  async create(entity: PostEntity): Promise<void> {}
-  async findById(id: string): Promise<void> {}
+  abstract create(entity: PostEntity): Promise<void>;
+  abstract findById(id: string): Promise<PostEntityProps>;
 }

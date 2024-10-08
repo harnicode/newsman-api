@@ -1,5 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PostEntity, PostRepository } from 'apps/micro.news/src/domain/post';
+import {
+  PostEntity,
+  PostEntityProps,
+  PostRepository,
+} from 'apps/micro.news/src/domain/post';
 import { PrismaService } from 'apps/micro.news/src/prisma/src';
 
 @Injectable()
@@ -27,7 +31,7 @@ export class PostDbRepository implements PostRepository {
     }
   }
 
-  async findById(id: string): Promise<void> {
+  async findById(id: string): Promise<PostEntityProps> {
     try {
       const result = await this.prisma.post.findUnique({
         where: {
@@ -35,7 +39,14 @@ export class PostDbRepository implements PostRepository {
         },
       });
 
-      this.logger.log(result);
+      const postProps: PostEntityProps = {
+        ...result,
+        status: result.status as PostEntityProps['status'],
+        publishedAt: result.publishedAt.toISOString(),
+        updatedAt: result.updatedAt.toISOString(),
+      };
+
+      return postProps;
     } catch (error) {
       this.logger.error(error);
     }

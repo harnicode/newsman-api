@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Post {
+  id          String   @id
+  title       String
+  slug        String   @unique
+  content     String
+  image       String
+  status      String
+  category    String
+  publishedAt DateTime
+  updatedAt   DateTime
+
+  @@map("posts")
+}

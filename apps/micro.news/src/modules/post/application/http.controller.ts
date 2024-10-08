@@ -1,9 +1,9 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { PostService } from './post.service';
+import { PostService } from '../services/post.service';
 import { CreatePostDto } from './dtos/create-post.dto';
 
 @Controller('posts')
-export class PostController {
+export class PostHttpController {
   constructor(private readonly postService: PostService) {}
 
   @Post()

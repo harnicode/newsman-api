@@ -1,10 +1,17 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dtos/create-post.dto';
-import { PostEntity, PostEntityId, PostEntityProps } from '../../domain/post';
+import { CreatePostDto } from '../application/dtos/create-post.dto';
+import {
+  PostEntity,
+  PostEntityId,
+  PostEntityProps,
+} from '../../../domain/post';
+import { PostDbRepository } from '../framework/db.repository';
 
 @Injectable()
 export class PostService {
-  createPost(dto: CreatePostDto) {
+  constructor(private readonly db: PostDbRepository) {}
+
+  async createPost(dto: CreatePostDto) {
     const postId = PostEntityId.create();
 
     const result = PostEntity.create({
@@ -20,7 +27,7 @@ export class PostService {
     });
 
     if (result.success) {
-      return result.entity!.toJson();
+      return await this.db.create(result.entity!);
     }
 
     throw new BadRequestException(result.error);

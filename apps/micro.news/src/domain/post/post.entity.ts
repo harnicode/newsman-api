@@ -50,7 +50,7 @@ export class PostEntity {
       image: this.props.image,
       status: this.props.status,
       category: this.props.category,
-      puslishedAt: this.props.publishedAt,
+      publishedAt: this.props.publishedAt,
       updatedAt: this.props.updatedAt,
     };
   }

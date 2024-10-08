@@ -1,6 +1,12 @@
 import { Module } from '@nestjs/common';
-import { PostController } from './post.controller';
-import { PostService } from './post.service';
+import { PostHttpController } from './application/http.controller';
+import { PostService } from './services/post.service';
+import { PrismaModule } from '../../prisma/src';
+import { PostDbRepository } from './framework/db.repository';
 
-@Module({ controllers: [PostController], providers: [PostService] })
+@Module({
+  imports: [PrismaModule],
+  controllers: [PostHttpController],
+  providers: [PostService, PostDbRepository],
+})
 export class PostModule {}

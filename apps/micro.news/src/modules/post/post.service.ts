@@ -15,7 +15,7 @@ export class PostService {
       image: dto.image,
       status: dto.status,
       category: dto.category,
-      publishedAt: dto.publishedAt,
+      publishedAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     });
 

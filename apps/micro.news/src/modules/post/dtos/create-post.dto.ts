@@ -6,4 +6,7 @@ export class CreatePostDto {
 
   @IsString({ message: 'Post content is required on the application level' })
   content: string;
+  @IsString({message:'Post image is required'})
+  image:string
+ 
 }

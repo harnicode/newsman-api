@@ -1,20 +1,20 @@
 import { postSchema } from './post.validate';
 
-// enum PostEntityStatus {
-//   draft,
-//   published,
-//   unpublished,
-// }
+export enum PostEntityStatus {
+  draft,
+  published,
+  unpublished,
+}
 
 export interface PostEntityProps {
   id: string;
   title: string;
   slug: string;
   content: string;
-  // image: string;
-  // status: PostEntityStatus;
-  // category: string;
-  // publishedAt: string;
+  image: string;
+  status: PostEntityStatus;
+  category: string;
+  publishedAt: string;
   updatedAt: string;
 }
 
@@ -46,13 +46,39 @@ export class PostEntity {
   get title(): string {
     return this.props.title;
   }
+  get slug():string{
+    return this.slug;
+  }
+  get content():string{
+    return this.content;
+  }
+  get image():string{
+    return this.image;
+
+  }
+  get publishedAt():string{
+    return this.publishedAt;
+  }
+  get status():string{
+    return this.status;
+  }
+ get category(): string{
+  return this.category;
+
+ }
+  
+ 
 
   toJson() {
     return {
       id: this.props.id,
       title: this.props.title,
       slug: this.props.slug,
+      image:this.props.image,
+      status: PostEntityStatus,
+      category:this.props.category,
       content: this.props.content,
+      publishedAt:this.props.publishedAt,
       updatedAt: this.props.updatedAt,
     };
   }

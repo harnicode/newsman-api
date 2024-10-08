@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dtos/create-post.dto';
-import { PostEntity, PostEntityId } from '../../domain/post';
+import { PostEntity, PostEntityId, PostEntityStatus } from '../../domain/post';
+import { date } from 'zod';
 
 @Injectable()
 export class PostService {
@@ -10,9 +11,13 @@ export class PostService {
     const result = PostEntity.create({
       id: postId,
       title: dto.title,
+      image: dto.image,
+      publishedAt: new Date().toISOString(),
       content: dto.content,
       slug: this.generateSlug(dto.title),
       updatedAt: new Date().toISOString(),
+      status: PostEntityStatus.published,
+      category: ''
     });
 
     if (result.success) {

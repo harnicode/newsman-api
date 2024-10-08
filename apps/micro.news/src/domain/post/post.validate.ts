@@ -25,6 +25,16 @@ export const postSchema = z.object({
       message: 'Post slug should have a maximum of 255 characters',
     }),
 
+  image: z.string({ message: 'Post image is required' }).url({
+    message: 'The Post image must be a valid URL',
+  }),
+
+  status: z.string({ message: 'Post status is required' }),
+
+  category: z.string({ message: 'Post status is required' }),
+
+  publishedAt: z.string({ message: 'Post publishedAt is required' }),
+
   content: z
     .string({ message: 'Post content is required' })
     .min(50, { message: 'Post content minimum length is 50 characters' }),

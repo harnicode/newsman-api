@@ -1,10 +1,7 @@
 import { postSchema } from './post.validate';
+import {format} from 'date-fns';
 
-export enum PostEntityStatus {
-  draft,
-  published,
-  unpublished,
-}
+
 
 export interface PostEntityProps {
   id: string;
@@ -12,8 +9,8 @@ export interface PostEntityProps {
   slug: string;
   content: string;
   image: string;
-  status: PostEntityStatus;
-  category: string;
+  status: 'Draft' | 'Published' | 'Unpublished';
+  category: 'Technology' | 'Entertainment' | 'Political';
   publishedAt: string;
   updatedAt: string;
 }
@@ -56,9 +53,7 @@ export class PostEntity {
     return this.image;
 
   }
-  get publishedAt():string{
-    return this.publishedAt;
-  }
+
   get status():string{
     return this.status;
   }
@@ -67,7 +62,20 @@ export class PostEntity {
 
  }
   
- 
+ get publishedAt(): string {
+  // return 'Testing Date'
+  const formattedDate = new Date(this.props.publishedAt);
+
+  
+
+  return format(formattedDate, "do MMM, yyyy");
+  // return `${date}`
+}
+
+get updatedAt(): string {
+  const formattedDate = new Date(this.props.updatedAt);
+  return format(formattedDate, "do MMM, yyyy");
+}
 
   toJson() {
     return {
@@ -75,11 +83,11 @@ export class PostEntity {
       title: this.props.title,
       slug: this.props.slug,
       image:this.props.image,
-      status: PostEntityStatus,
+      status: this.props.status,
       category:this.props.category,
       content: this.props.content,
-      publishedAt:this.props.publishedAt,
-      updatedAt: this.props.updatedAt,
+      publishedAt:this.publishedAt,
+      updatedAt: this.updatedAt,
     };
   }
 }

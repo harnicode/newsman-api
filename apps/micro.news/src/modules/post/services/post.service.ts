@@ -1,53 +1,23 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from '../application/dtos/create-post.dto';
-import {
-  PostEntity,
-  PostEntityId,
-  PostEntityProps,
-} from '../../../domain/post';
-import { PostDbRepository } from '../framework/db.repository';
+import { CreatePostCommand } from '../application/commands/interface';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { GetPostByIdQuery } from '../application/queries/interface';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly db: PostDbRepository) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   async getPost(id: string) {
-    return await this.db.findById(id);
+    const query = new GetPostByIdQuery(id);
+    return await this.queryBus.execute(query);
   }
 
   async createPost(dto: CreatePostDto) {
-    const postId = PostEntityId.create();
-
-    const result = PostEntity.create({
-      id: postId,
-      title: dto.title,
-      content: dto.content,
-      image: dto.image,
-      category: dto.category,
-      slug: this.generateSlug(dto.title),
-      publishedAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      status: dto.status as PostEntityProps['status'],
-    });
-
-    if (result.success) {
-      return await this.db.create(result.entity!);
-    }
-
-    throw new BadRequestException(result.error);
-  }
-
-  private generateSlug(title: string) {
-    const regex = /[!@#$%^&*(),.?":{}|<>]/g;
-    const random = Math.floor(Math.random() * 10000);
-
-    const slug = title
-      .toLowerCase()
-      .replaceAll(regex, ' ')
-      .replaceAll('  ', ' ')
-      .trim()
-      .replaceAll(' ', '-');
-
-    return `${slug}-${random}`;
+    const command = new CreatePostCommand(dto);
+    return this.commandBus.execute(command);
   }
 }

@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { PostEntity, PostEntityId } from '../../domain/post';
+import { format, parseISO } from 'date-fns';
+
 
 @Injectable()
 export class PostService {
@@ -15,7 +17,7 @@ export class PostService {
       image: dto.image,
       status: dto.status,
       category: dto.category,
-      publishedAt: new Date().toISOString(),
+      publishedAt: this.convertToDate(dto.publishedAt),
       updatedAt: new Date().toISOString(),
     });
 
@@ -35,5 +37,12 @@ export class PostService {
       .replaceAll('  ', ' ')
       .trim()
       .replaceAll(' ', '-');
+  }
+
+  private convertToDate(dateString: string) {
+    const date = parseISO(dateString);
+    format(date, "do MMMM, yyyy");
+    console.log(date);
+    return date.toString();
   }
 }

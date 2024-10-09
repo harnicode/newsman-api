@@ -13,7 +13,7 @@ export class CreatePostDto {
   @IsString({ message: 'Post content is required on the application level' })
   category: string;
 
-  @IsString({ message: 'Post content is required on the application level' })
+  @IsString({ message: 'Post content for publishedAt is required on the application level' })
   publishedAt: string;
 
   @IsString({ message: 'Post content is required on the application level' })

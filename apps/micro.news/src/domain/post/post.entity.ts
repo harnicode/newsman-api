@@ -80,9 +80,10 @@ export class PostEntity {
   }
 
   get publishedAt(): string {
-    const date = new Date(this.props.publishedAt);
-    // return `${convertDay(format(date, 'dd'))} ${format(date, 'MMMM')}, ${format(date, 'yyyy')}`;
-    return format(date, "do MMMM, yyyy");
+    // const date = new Date(this.props.publishedAt);
+    // // return `${convertDay(format(date, 'dd'))} ${format(date, 'MMMM')}, ${format(date, 'yyyy')}`;
+    // return format(date, "do MMMM, yyyy");
+    return this.props.publishedAt;
   }
 
   get updatedAt(): string {
@@ -99,7 +100,7 @@ export class PostEntity {
       image: this.props.image,
       status: this.props.status,
       category: this.props.category,
-      publishedAt: this.publishedAt,
+      publishedAt: this.props.publishedAt,
       updatedAt: this.updatedAt,
     };
   }

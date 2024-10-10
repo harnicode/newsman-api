@@ -11,6 +11,12 @@ export class PostHttpController {
     return this.postService.getPost(id);
   }
 
+  @Get('allPosts')
+  getPosts() {
+    return this.postService.getPosts();
+  }
+  // the getPost(id) is coming from post.services.ts
+
   @Post()
   createPost(@Body() dto: CreatePostDto) {
     return this.postService.createPost(dto);

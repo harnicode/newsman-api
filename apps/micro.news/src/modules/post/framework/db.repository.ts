@@ -51,4 +51,28 @@ export class PostDbRepository implements PostRepository {
       this.logger.error(error);
     }
   }
+
+  async findAll(): Promise<PostEntityProps[]> {
+    try {
+      const result = await this.prisma.post.findMany();
+
+      const postProps: PostEntityProps[] = result.map((post) => {
+        return {
+          id: post.id,
+          title: post.title,
+          slug: post.slug,
+          content: post.content,
+          image: post.image,
+          status: post.status as PostEntityProps['status'],
+          category: post.category,
+          publishedAt: post.publishedAt.toISOString(),
+          updatedAt: post.updatedAt.toISOString(),
+        };
+      });
+
+      return postProps;
+    } catch (error) {
+      this.logger.error(error);
+    }
+  }
 }

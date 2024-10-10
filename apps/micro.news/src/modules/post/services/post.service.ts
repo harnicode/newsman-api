@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from '../application/dtos/create-post.dto';
 import { CreatePostCommand } from '../application/commands/interface';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { GetPostByIdQuery } from '../application/queries/interface';
+import { GetAllPostsQuery, GetPostByIdQuery } from '../application/queries/interface';
 
 @Injectable()
 export class PostService {
@@ -14,6 +14,11 @@ export class PostService {
   async getPost(id: string) {
     const query = new GetPostByIdQuery(id);
     return await this.queryBus.execute(query);
+  }
+
+  async getPosts() {
+    // const query = new GetAllPostsQuery()
+    return await this.queryBus.execute(new GetAllPostsQuery());
   }
 
   async createPost(dto: CreatePostDto) {

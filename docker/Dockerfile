@@ -17,7 +17,7 @@ COPY --chown=node:node .yarn .yarn
 COPY --chown=node:node .yarnrc.yml .yarnrc.yml
 COPY --chown=node:node yarn.lock .
 COPY --chown=node:node package.json .
-COPY --chown=node:node node_modules/.prisma/client node_modules/.prisma/client
+COPY --chown=node:node apps/micro.news/src/prisma/client apps/micro.news/src/prisma/client
 COPY --chown=node:node dist/apps/micro.news/main.js dist/apps/micro.news/main.js
 
 # Set environment variables
